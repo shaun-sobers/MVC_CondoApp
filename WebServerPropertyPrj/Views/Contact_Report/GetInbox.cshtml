@@ -1,0 +1,39 @@
+﻿@model IEnumerable<WebServerPropertyPrj.Models.Contact_Report>
+
+
+@{
+    ViewBag.Title = "GetInbox";
+}
+
+<h2>Details</h2>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FromUserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReportType)
+        </th>
+        <th></th>
+    </tr>
+
+    
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FromUserId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReportType)
+            </td>
+
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.MessageId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.MessageId })
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,77 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-
+                        target=".navbar-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+                </button>
+ 
+                @Html.ActionLink("S&R Premium Condominian", "Index", "Accounts", new
+               
+                {
+
+                    area = ""
+                }, new { @class = "navbar-brand" })
+            </div> <div class="navbar-collapse collapse">
+                       <ul class="nav navbar-nav">
+                           @if (User.Identity.IsAuthenticated)
+                           {
+
+                               var Usertype = Session["UserType"];
+                               if (Usertype != null)
+                               {
+                                   if (Usertype == "tenant")
+                                   {
+                                       <li>@Html.ActionLink("View Apartments", "TenentIndex", "Apartments")</li>
+                                       <li>@Html.ActionLink("Send Message", "SendMessageTenant", "Contact_Report")</li>
+                                       <li>  @Html.ActionLink("Inbox", "GetInbox", "Contact_Report", new { id = Session["userid"] }, null) </li>
+                                   }
+                                   if (Usertype == "property manager")
+                                   {
+                                       <li>@Html.ActionLink("List Apartments", "Create", "Apartments")</li>
+                                       <li>@Html.ActionLink("List Building", "Create", "Buildings")</li>
+                                       <li>@Html.ActionLink("Send Message", "SendMessageTenant", "Contact_Report")</li>
+                                       <li>  @Html.ActionLink("Inbox", "GetInbox", "Contact_Report", new { id = Session["userid"] }, null) </li>
+                                   }
+                                   if (Usertype == "property owner")
+                                   {
+                                       <li>@Html.ActionLink("Create a Apartments Listing", "Create", "Apartments")</li>
+                                       <li>@Html.ActionLink("Create a Building Listing", "Create", "Buildings")</li>
+                                       <li>@Html.ActionLink("Users Lists", "Index", "Users")</li>
+                                       <li>@Html.ActionLink("Building Lists", "Index", "Buildings")</li>
+                                       <li>@Html.ActionLink("Apartment Lists", "Index", "Apartments")</li>
+                                       <li>@Html.ActionLink("Send Message", "SendMessageTenant", "Contact_Report")</li>
+                                       <li>@Html.ActionLink("Inbox", "GetInbox", "Contact_Report", new { id = Session["userid"] }, null) </li>
+                                   }
+                               }
+                               <li><a>Hello - @User.Identity.Name</a></li>
+                               <li>@Html.ActionLink("Logout", "Logout", "Accounts")</li>
+
+                           }
+                           else
+                           {
+                               <li>@Html.ActionLink("Login", "Login", "Accounts")</li>
+
+                           }
+                       </ul>
+            </div>
+        </div>
+    </div>  <div class="container body-content">
+        @RenderBody() <hr /> <footer> <p>&copy; @DateTime.Now.Year - My ASP.NET MVC Application</p> </footer>
+    </div>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>
